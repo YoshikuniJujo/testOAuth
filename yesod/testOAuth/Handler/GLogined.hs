@@ -55,7 +55,10 @@ getGLoginedR = do
 			["Yesod"]
 			req2
 	rBody2 <- getResponseBody <$> httpLBS req2'
-	print rBody2
+	let Just json2 = decode rBody2 :: Maybe Object
+	print "hoge"
+	mapM_ print $ HML.toList json2
+	print "hige"
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getGLoginedR" :: Text
