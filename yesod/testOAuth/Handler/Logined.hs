@@ -9,6 +9,10 @@ import Network.HTTP.Simple
 import Tools.Temporary
 
 import qualified Data.ByteString.Char8 as BSC
+import Data.Aeson
+import qualified Data.HashMap.Lazy as HML
+import qualified Data.Text.Encoding
+import qualified Data.Text as Text
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -35,7 +39,25 @@ getLoginedR = do
 				("code", Just $ encodeUtf8 code)
 				] $
 			initReq { method = "POST" }
-	httpLBS req >>= print . getResponseBody
+		req' = setRequestHeader "ACCEPT" ["application/json"] req
+	rBody <- getResponseBody <$> httpLBS req'
+--	print rBody
+	let Just (String at) =
+		(HML.lookup "access_token") =<< (decode rBody :: Maybe Object)
+	print at
+--	initReq2 <- parseRequest $ "https://api.github.com/user?access_token="
+--		<> Text.unpack at
+	initReq2 <- parseRequest $ "https://api.github.com/user"
+	let	req2 = setRequestHeader
+			"Authorization"
+			["token " <> encodeUtf8 at]
+			initReq2
+		req2' = setRequestHeader
+			"User-Agent"
+			["Yesod"]
+			req2
+	rBody <- getResponseBody <$> httpLBS req2'
+	print rBody
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getLoginedR" :: Text
