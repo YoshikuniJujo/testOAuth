@@ -13,3 +13,7 @@
 /github GithubR GET
 
 /glogined GLoginedR GET
+
+/facebook FacebookR GET
+
+/flogined FLoginedR GET

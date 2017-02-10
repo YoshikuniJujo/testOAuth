@@ -36,6 +36,8 @@ import Handler.Common
 import Handler.Home
 import Handler.Github
 import Handler.GLogined
+import Handler.Facebook
+import Handler.FLogined
 import Handler.Comment
 import Handler.Profile
 

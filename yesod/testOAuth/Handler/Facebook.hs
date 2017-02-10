@@ -1,4 +1,4 @@
-module Handler.Github where
+module Handler.Facebook where
 
 import Import
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
@@ -19,37 +19,12 @@ data FileForm = FileForm
 -- The majority of the code you will write in Yesod lives in these handler
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
-getGithubR :: Handler Html
-getGithubR = do
+getFacebookR :: Handler Html
+getFacebookR = do
 	redirect $
-		("https://github.com/login/oauth/authorize?" ++
-			"client_id=" ++ gClientId ++ "&state=hoge&" ++
-			"redirect_uri=http://localhost:3000/glogined" :: String)
-{-
-getGithubR = do
-    (formWidget, formEnctype) <- generateFormPost sampleForm
-    let submission = Nothing :: Maybe FileForm
-        handlerName = "getGithubR" :: Text
-    defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
-        aDomId <- newIdent
-        setTitle "Welcome To Yesod!"
-        $(widgetFile "homepage")
-	-}
-
-postGithubR :: Handler Html
-postGithubR = do
-    ((result, formWidget), formEnctype) <- runFormPost sampleForm
-    let handlerName = "postGithubR" :: Text
-        submission = case result of
-            FormSuccess res -> Just res
-            _ -> Nothing
-
-    defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
-        aDomId <- newIdent
-        setTitle "Welcome To Yesod!"
-        $(widgetFile "homepage")
+		("https://www.facebook.com/v2.8/dialog/oauth?" ++
+			"client_id=" ++ fClientId ++ "&state=hoge&" ++
+			"redirect_uri=http://localhost:3000/flogined" :: String)
 
 sampleForm :: Form FileForm
 sampleForm = renderBootstrap3 BootstrapBasicForm $ FileForm
