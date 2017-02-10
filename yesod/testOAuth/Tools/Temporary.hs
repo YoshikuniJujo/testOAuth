@@ -4,6 +4,6 @@ import Prelude
 
 import System.IO.Unsafe
 
-clientId, clientSecret :: String
-[clientId, clientSecret] = map (head . lines . unsafePerformIO . readFile)
-	["clientId.txt", "clientSecret.txt"]
+gClientId, gClientSecret :: String
+[gClientId, gClientSecret] = map (head . lines . unsafePerformIO . readFile)
+	["g_clientId.txt", "g_clientSecret.txt"]

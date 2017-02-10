@@ -32,8 +32,8 @@ getGLoginedR = do
 	lookupGetParam "state" >>= print
 	initReq <- parseRequest "https://github.com/login/oauth/access_token"
 	let	req = setRequestQueryString [
-				("client_id", Just $ BSC.pack clientId),
-				("client_secret", Just $ BSC.pack clientSecret),
+				("client_id", Just $ BSC.pack gClientId),
+				("client_secret", Just $ BSC.pack gClientSecret),
 				("code", Just $ encodeUtf8 code)
 				] $
 			initReq { method = "POST" }
@@ -56,9 +56,7 @@ getGLoginedR = do
 			req2
 	rBody2 <- getResponseBody <$> httpLBS req2'
 	let Just json2 = decode rBody2 :: Maybe Object
-	print "hoge"
 	mapM_ print $ HML.toList json2
-	print "hige"
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getGLoginedR" :: Text

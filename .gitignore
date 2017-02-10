@@ -1,4 +1,4 @@
 .stack-work/
-/yesod/testOAuth/clientId.txt
-/yesod/testOAuth/clientSecret.txt
+/yesod/testOAuth/g_clientId.txt
+/yesod/testOAuth/g_clientSecret.txt
 /yesod/testOAuth/.dir-locals.el

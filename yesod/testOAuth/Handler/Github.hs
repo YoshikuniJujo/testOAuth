@@ -23,7 +23,7 @@ getGithubR :: Handler Html
 getGithubR = do
 	redirect $
 		("https://github.com/login/oauth/authorize?" ++
-			"client_id=" ++ clientId ++ "&state=hoge&" ++
+			"client_id=" ++ gClientId ++ "&state=hoge&" ++
 --			"client_id=d9c1a1cda35ea7535abc&state=hoge&" ++
 			"redirect_uri=http://localhost:3000/glogined" :: String)
 {-
