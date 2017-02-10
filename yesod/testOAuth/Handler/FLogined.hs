@@ -48,6 +48,7 @@ getFLoginedR = do
 	print at
 	initReq2 <- parseRequest $ "https://graph.facebook.com/v2.8/me?access_token="
 		<> Text.unpack at
+		<> "&fields=birthday,name,email"
 --	initReq2 <- parseRequest $ "https://graph.facebook.com/v2.8/me"
 	let	req2 = setRequestHeader
 			"Authorization"

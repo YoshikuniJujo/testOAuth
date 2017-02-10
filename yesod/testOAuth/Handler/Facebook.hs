@@ -24,6 +24,7 @@ getFacebookR = do
 	redirect $
 		("https://www.facebook.com/v2.8/dialog/oauth?" ++
 			"client_id=" ++ fClientId ++ "&state=hoge&" ++
+			"scope=user_birthday,email&" ++
 			"redirect_uri=http://localhost:3000/flogined" :: String)
 
 sampleForm :: Form FileForm
