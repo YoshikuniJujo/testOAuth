@@ -12,4 +12,4 @@
 
 /github GithubR GET
 
-/logined LoginedR GET
+/glogined GLoginedR GET

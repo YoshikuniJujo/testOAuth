@@ -1,4 +1,4 @@
-module Handler.Logined where
+module Handler.GLogined where
 
 import Import
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
@@ -11,8 +11,6 @@ import Tools.Temporary
 import qualified Data.ByteString.Char8 as BSC
 import Data.Aeson
 import qualified Data.HashMap.Lazy as HML
-import qualified Data.Text.Encoding
-import qualified Data.Text as Text
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -27,8 +25,8 @@ data FileForm = FileForm
 -- The majority of the code you will write in Yesod lives in these handler
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
-getLoginedR :: Handler Html
-getLoginedR = do
+getGLoginedR :: Handler Html
+getGLoginedR = do
 	Just code <- lookupGetParam "code"
 	print code
 	lookupGetParam "state" >>= print
@@ -56,11 +54,11 @@ getLoginedR = do
 			"User-Agent"
 			["Yesod"]
 			req2
-	rBody <- getResponseBody <$> httpLBS req2'
-	print rBody
+	rBody2 <- getResponseBody <$> httpLBS req2'
+	print rBody2
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
-		handlerName = "getLoginedR" :: Text
+		handlerName = "getGLoginedR" :: Text
 	defaultLayout $ do
 		let (commentFormId, commentTextareaId, commentListId) = commentIds
 		aDomId <- newIdent

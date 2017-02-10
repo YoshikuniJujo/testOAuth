@@ -23,7 +23,7 @@ library
                      Handler.Common
                      Handler.Home
                      Handler.Github
-                     Handler.Logined
+                     Handler.GLogined
                      Handler.Comment
                      Handler.Profile
                      Tools.Temporary

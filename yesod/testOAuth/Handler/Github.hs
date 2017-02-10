@@ -25,7 +25,7 @@ getGithubR = do
 		("https://github.com/login/oauth/authorize?" ++
 			"client_id=" ++ clientId ++ "&state=hoge&" ++
 --			"client_id=d9c1a1cda35ea7535abc&state=hoge&" ++
-			"redirect_uri=http://localhost:3000/logined" :: String)
+			"redirect_uri=http://localhost:3000/glogined" :: String)
 {-
 getGithubR = do
     (formWidget, formEnctype) <- generateFormPost sampleForm

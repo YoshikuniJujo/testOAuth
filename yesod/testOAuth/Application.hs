@@ -35,7 +35,7 @@ import System.Log.FastLogger                (defaultBufSize, newStdoutLoggerSet,
 import Handler.Common
 import Handler.Home
 import Handler.Github
-import Handler.Logined
+import Handler.GLogined
 import Handler.Comment
 import Handler.Profile
 
