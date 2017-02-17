@@ -1,0 +1,1 @@
+echo -n `cat y_clientId.txt`:`cat y_clientSecret.txt` | base64 | tr -d "\n" > y_clientIdSecret.txt

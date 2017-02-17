@@ -26,6 +26,8 @@ library
                      Handler.GLogined
                      Handler.Facebook
                      Handler.FLogined
+                     Handler.YahooJapan
+                     Handler.YLogined
                      Handler.Comment
                      Handler.Profile
                      Tools.Temporary

@@ -11,3 +11,7 @@ gClientId, gClientSecret :: String
 fClientId, fClientSecret :: String
 [fClientId, fClientSecret] = map (head . lines . unsafePerformIO . readFile)
 	["f_clientId.txt", "f_clientSecret.txt"]
+
+yClientId, yClientSecret, yClientIdSecret :: String
+[yClientId, yClientSecret, yClientIdSecret] = map (concat . lines . unsafePerformIO . readFile)
+	["y_clientId.txt", "y_clientSecret.txt", "y_clientIdSecret.txt"]

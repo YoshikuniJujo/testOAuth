@@ -141,6 +141,8 @@ instance Yesod App where
     isAuthorized GLoginedR _ = return Authorized
     isAuthorized FacebookR _ = return Authorized
     isAuthorized FLoginedR _ = return Authorized
+    isAuthorized YahooJapanR _ = return Authorized
+    isAuthorized YLoginedR _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
     isAuthorized (StaticR _) _ = return Authorized

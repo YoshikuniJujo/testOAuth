@@ -17,3 +17,7 @@
 /facebook FacebookR GET
 
 /flogined FLoginedR GET
+
+/yahooJapan YahooJapanR GET
+
+/ylogined YLoginedR GET

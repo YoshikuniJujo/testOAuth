@@ -38,6 +38,8 @@ import Handler.Github
 import Handler.GLogined
 import Handler.Facebook
 import Handler.FLogined
+import Handler.YahooJapan
+import Handler.YLogined
 import Handler.Comment
 import Handler.Profile
 
