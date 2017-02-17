@@ -3,4 +3,6 @@
 /yesod/testOAuth/g_clientSecret.txt
 /yesod/testOAuth/f_clientId.txt
 /yesod/testOAuth/f_clientSecret.txt
+/yesod/testOAuth/y_clientId.txt
+/yesod/testOAuth/y_clientSecret.txt
 /yesod/testOAuth/.dir-locals.el

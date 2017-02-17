@@ -8,6 +8,23 @@
             <a href="http://www.yesodweb.com/book/" .btn.btn-info.btn-lg>
                 Read the Book
 
+<p><img src="http://i.yimg.jp/images/login/btn/btnLYid.gif"
+        width="366" height="38"
+        alt="Yahoo! JAPAN IDでログイン"
+        border="0">
+
+<script src="https://s.yimg.jp/images/yjdn/js/bakusoku-jsonp-v1-min.js"
+  data-url="http://shopping.yahooapis.jp/ShoppingWebService/V1/json/categoryRanking"
+  data-p-appid="dj0zaiZpPW1TWXBrc1o1Rkg4RSZzPWNvbnN1bWVyc2VjcmV0Jng9MWE-"
+  data-p-category_id="14828"
+  data-p-type="up">
+    <ol>
+      {{#ResultSet.0.Result}}
+      {{#0}}
+        <li><a href="{{Url}}"><img src="{{Image.Medium}}"><br>{{Name}}
+      {{/0}}
+      {{/ResultSet.0.Result}}
+
 <div .container>
     <!-- Starting
         ================================================== -->
