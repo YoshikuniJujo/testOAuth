@@ -24,7 +24,7 @@ getYahooJapanR = do
 	redirect $
 		("https://auth.login.yahoo.co.jp/yconnect/v1/authorization?" ++
 			"response_type=code+id_token&" ++
-			"scope=openid+profile&" ++
+			"scope=openid+profile+address&" ++
 			"client_id=" ++ yClientId ++ "&state=hogeru&" ++
 			"nonce=abcdefghijklmnop&" ++
 			"redirect_uri=http://localhost:3000/ylogined" :: String)
