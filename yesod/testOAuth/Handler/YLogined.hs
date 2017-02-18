@@ -14,7 +14,14 @@ import qualified Data.ByteString.Char8 as BSC
 import Data.Aeson
 import qualified Data.HashMap.Lazy as HML
 
+import qualified Data.ByteString.Base64.URL as B64
+
 import qualified Data.Text as Text
+
+import Crypto.MAC.HMAC
+import qualified Crypto.Hash.SHA256 as SHA256
+
+import Data.Time.Clock.POSIX
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -70,10 +77,6 @@ getYLoginedR = do
 			["Bearer " <> encodeUtf8 at]
 --			["token " <> toStrict at]
 			initReq2
-		req2' = setRequestHeader
-			"User-Agent"
-			["Yesod"]
-			req2
 	rBody2 <- getResponseBody <$> httpLBS req2
 	print rBody2
 	let Just json2 = decode rBody2 :: Maybe Object
@@ -81,6 +84,16 @@ getYLoginedR = do
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getYLoginedR" :: Text
+	let [hd, pl, sg] = Text.splitOn "." it
+	let [hdd, pld] = map (either (error . show) id . B64.decode . encodeUtf8)
+		[hd, pl]
+	either print (lift . BSC.putStrLn) . B64.decode $ encodeUtf8 hd
+	either print (lift . BSC.putStrLn) . B64.decode $ encodeUtf8 pl
+	putStrLn sg
+	lift . BSC.putStrLn . B64.encode
+		. hmac SHA256.hash 64 (BSC.pack yClientSecret)
+		$ encodeUtf8 hd <> "." <> encodeUtf8 pl
+	lift getPOSIXTime >>= print
 	defaultLayout $ do
 		let (commentFormId, commentTextareaId, commentListId) = commentIds
 		aDomId <- newIdent

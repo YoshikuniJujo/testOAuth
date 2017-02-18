@@ -100,6 +100,8 @@ library
                  , time
                  , case-insensitive
                  , wai
+                 , base64-bytestring
+                 , cryptohash
 
 executable         testOAuth
     if flag(library-only)
