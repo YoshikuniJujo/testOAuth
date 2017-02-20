@@ -74,6 +74,13 @@ getYLoginedR = do
 	lift . BSC.putStrLn . B64.encode
 		. hmac SHA256.hash 64 yClientSecret
 		$ encodeUtf8 hd <> "." <> encodeUtf8 pl
+	initReq2 <- parseRequest $
+		"https://userinfo.yahooapis.jp/yconnect/v1/attribute?schema=openid"
+	let	req2 = setRequestHeader
+			"Authorization" ["Bearer " <> encodeUtf8 at] initReq2
+	rBody2 <- getResponseBody <$> httpLBS req2
+	let	Just json2 = Aeson.decode rBody2 :: Maybe Aeson.Object
+	mapM_ print $ HML.toList json2
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getYLoginedR" :: Text
