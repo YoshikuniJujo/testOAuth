@@ -12,6 +12,9 @@ import qualified Data.ByteString.Base64.URL as B64
 import qualified Data.Aeson as Aeson
 import qualified Data.HashMap.Lazy as HML
 
+import qualified Data.Text as Text
+import qualified Data.ByteString.Lazy as LBS
+
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
     { fileInfo :: FileInfo
@@ -50,12 +53,20 @@ getYLoginedR = do
 	rBody <- getResponseBody <$> httpLBS req''
 	print rBody
 	let	Just resp  =  Aeson.decode rBody :: Maybe Aeson.Object
-	print resp
 	print $ keys resp
 	let	Just (String at) = HML.lookup "access_token" resp
 		Just (String it) = HML.lookup "id_token" resp
 	print at
 	print it
+	let	[hd, pl, sg] = Text.splitOn "." it
+		[Just hdd, Just pld] = map
+			((Aeson.decode :: LBS.ByteString -> Maybe Aeson.Object)
+				. LBS.fromStrict
+				. either (error . show) id
+				. B64.decode . encodeUtf8)
+			[hd, pl]
+	print hdd
+	print pld
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getYLoginedR" :: Text
