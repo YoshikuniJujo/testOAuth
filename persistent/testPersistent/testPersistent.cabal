@@ -19,12 +19,14 @@ library
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
 
-executable testPersistent-exe
+executable testPersistent
   hs-source-dirs:      app
   main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , testPersistent
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fno-warn-tabs
+  build-depends:
+      base, resourcet, monad-logger,
+      persistent, persistent-template, persistent-sqlite,
+      testPersistent
   default-language:    Haskell2010
 
 test-suite testPersistent-test
