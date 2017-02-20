@@ -88,6 +88,7 @@ library
                  , time
                  , case-insensitive
                  , wai
+                 , base64-bytestring
 
 executable         testOpenID
     if flag(library-only)

@@ -5,6 +5,9 @@ import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
 import Text.Julius (RawJS (..))
 
 import Network.HTTP.Simple
+import Data.ByteString as BS
+import Data.ByteString.Char8 as BSC
+import qualified Data.ByteString.Base64.URL as B64
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -25,6 +28,24 @@ getYLoginedR = do
 	Just state <- lookupGetParam "state"
 	print code
 	print state
+	initReq <-
+		parseRequest "https://auth.login.yahoo.co.jp/yconnect/v1/token"
+	yClientId <-
+		lift $ BS.concat . BSC.lines <$> BS.readFile "y_clientId.txt"
+	yClientSecret <-
+		lift $ BS.concat . BSC.lines <$> BS.readFile "y_clientSecret.txt"
+	let	yClientIdSecret = B64.encode $ yClientId <> ":" <> yClientSecret
+		req = setRequestHeader "Content-Type"
+			["application/x-www-form-urlencoded"]
+			initReq { method = "POST" }
+		req' = setRequestHeader "Authorization"
+			["Basic " <> yClientIdSecret] req
+		req'' = setRequestBody (RequestBodyBS $
+			"grant_type=authorization_code&code=" <>
+			encodeUtf8 code <>
+			"&redirect_uri=http://localhost:3000/ylogined") req'
+	rBody <- getResponseBody <$> httpLBS req''
+	print rBody
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getYLoginedR" :: Text
