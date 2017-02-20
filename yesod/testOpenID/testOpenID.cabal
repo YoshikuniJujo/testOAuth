@@ -89,6 +89,7 @@ library
                  , case-insensitive
                  , wai
                  , base64-bytestring
+                 , cryptohash
 
 executable         testOpenID
     if flag(library-only)

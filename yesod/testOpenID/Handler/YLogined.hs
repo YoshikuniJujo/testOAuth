@@ -15,6 +15,9 @@ import qualified Data.HashMap.Lazy as HML
 import qualified Data.Text as Text
 import qualified Data.ByteString.Lazy as LBS
 
+import Crypto.MAC.HMAC
+import qualified Crypto.Hash.SHA256 as SHA256
+
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
     { fileInfo :: FileInfo
@@ -67,6 +70,10 @@ getYLoginedR = do
 			[hd, pl]
 	print hdd
 	print pld
+	putStrLn sg
+	lift . BSC.putStrLn . B64.encode
+		. hmac SHA256.hash 64 yClientSecret
+		$ encodeUtf8 hd <> "." <> encodeUtf8 pl
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getYLoginedR" :: Text
