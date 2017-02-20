@@ -43,7 +43,9 @@ getYLoginedR = do
 	lookupGetParam "state" >>= print
 	initReq <- parseRequest "https://auth.login.yahoo.co.jp/yconnect/v1/token"
 --	initReq <- parseRequest "http://localhost:4000"
-	let	req = setRequestQueryString [
+	let	yClientIdSecret = B64.encode $
+			BSC.pack yClientId <> ":" <> BSC.pack yClientSecret
+		req = setRequestQueryString [
 				("grant_type", Just "authorization_code"),
 				("code", Just $ encodeUtf8 code),
 				("redirect_uri", Just "http://localhost:3000/ylogined")
@@ -54,7 +56,7 @@ getYLoginedR = do
 			encodeUtf8 code <>
 			"&redirect_uri=http://localhost:3000/ylogined") req
 		req' = setRequestHeader "Authorization"
-			["Basic " <> BSC.pack yClientIdSecret] reqRB
+			["Basic " <> yClientIdSecret] reqRB
 		req'' = setRequestHeader "Content-Type"
 			["application/x-www-form-urlencoded"] req'
 		req''' = setRequestHeader "Accept" ["*/*"] req''

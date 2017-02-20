@@ -1,4 +1,8 @@
-module Tools.Temporary where
+module Tools.Temporary (
+	gClientId, gClientSecret,
+	fClientId, fClientSecret,
+	yClientId, yClientSecret
+	) where
 
 import Prelude
 
