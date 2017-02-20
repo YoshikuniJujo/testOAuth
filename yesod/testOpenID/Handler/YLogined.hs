@@ -5,9 +5,12 @@ import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
 import Text.Julius (RawJS (..))
 
 import Network.HTTP.Simple
-import Data.ByteString as BS
-import Data.ByteString.Char8 as BSC
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Char8 as BSC
 import qualified Data.ByteString.Base64.URL as B64
+
+import qualified Data.Aeson as Aeson
+import qualified Data.HashMap.Lazy as HML
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -46,6 +49,13 @@ getYLoginedR = do
 			"&redirect_uri=http://localhost:3000/ylogined") req'
 	rBody <- getResponseBody <$> httpLBS req''
 	print rBody
+	let	Just resp  =  Aeson.decode rBody :: Maybe Aeson.Object
+	print resp
+	print $ keys resp
+	let	Just (String at) = HML.lookup "access_token" resp
+		Just (String it) = HML.lookup "id_token" resp
+	print at
+	print it
 	(formWidget, formEnctype) <- generateFormPost sampleForm
 	let	submission = Nothing :: Maybe FileForm
 		handlerName = "getYLoginedR" :: Text
